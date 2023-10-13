@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Sign up</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                    
+                    <button type="button" class="toggle-btn" onclick="login()">Login</button>
+                    <button type="button" class="toggle-btn" onclick="signup()">Register</button>
+            </div>
+       
+            <div class="icons-wrapper">
+                <a href="http://facebook.com"  target="_blank"><img src="icons/facebook.png " > </a> 
+                <a href="http://instagram.com" target="_blank"><img src="icons/instagram.png " > </a> 
+               <a href="http://twitter.com" target="_blank"><img src="icons/twitter.png " > </a> 
+              
+            </div>
+    
+    <!-- Login form  -->
+        <form id='login' class="input-group" onsubmit="validateLogin()" >
+            <input type="text" id="username" class="input-field" placeholder="Username" required>
+            <input type="password" id="password" class="input-field" placeholder="Password" required>
+            <input type="checkbox" class="checkbox" ><span>Remember Password</span>
+
+            <a href="/index.html"><button type="button" class="submit-btn">Login</button></a>
+                
+            
+        </form>
+
+    <!--Sign Up  -->
+        <form  id='signup' class="input-group" onsubmit="myfunc(event)">
+            <input type="text" id='uname' class="input-field" placeholder="Username" required>
+            <input type="password" id="pwd" class="input-field" placeholder="Password" required>
+            <input type="email" id="email" class="input-field" placeholder="Email Id" required>
+           <p>
+
+               <input type="checkbox" class="checkbox" required ><span>I agree to the terms & conditions</span>
+        </p>
+
+            <button type="submit"  class="submit-btn">Submit</button>
+        </form>
+        </div>
+    </div>
+
+    <script>
+        var x = document.getElementById('login');
+        var y = document.getElementById('signup');
+        var z = document.getElementById('btn');
+        
+        function signup(){
+            x.style.left = '-400px';
+            y.style.left = '50px';
+            z.style.left = '110px';
+        }
+
+        function login(){
+            x.style.left = '50px';
+            y.style.left = '450px';
+            z.style.left = '0';
+        }
+
+
+
+    
+
+        //store input from register form 
+        const myfunc= event =>{
+        let formData = {
+
+        
+            uname : document.getElementById("uname").value,
+            email : document.getElementById("email").value,
+             pwd : document.getElementById("pwd").value,
+        }
+        localStorage.setItem('formData', JSON.stringify(formData));
+        console.log(localStorage.getItem('formData'));
+
+        alert('Your account has been created');
+
+    }
+
+//to check if stored data in register form in equal to data entered in login form
+
+function validateLogin() {
+    // Stored data in register form
+    var storedName = localStorage.getItem('formData').uname;
+    var storedPw = localStorage.getItem('formData').pwd;
+
+    // Entered data from login form
+    var userName = document.getElementById('username').value;
+    var userPw = document.getElementById('password').value;
+
+    var storedData = JSON.parse(localStorage.getItem('formData'));
+
+    // Compare entered data with stored data
+    if (storedData) {
+    var storedName = storedData.uname;
+    var storedPw = storedData.pwd;
+
+    if (userName === storedName && userPw === storedPw) {
+        alert('You are logged in');
+    } else {
+        alert('Invalid login');
+    }
+} else {
+    alert('No registration data found.');
+}
+}
+
+
+    </script>
+</body>
+</html>
